@@ -1,16 +1,63 @@
 
-//get a random number
+function random(){
+    return Math.round(Math.random() * 2);
+}
 
 function getComputerChoice() {
-    return Math.round(Math.random() * 2);
+
+    if  (Math.round(Math.random() * 2) === 0) {
+        return "rock"
+    }
+    else if (Math.round(Math.random() * 2) === 1){
+        return "paper"
+    }
+    else {
+        return "scissors"
+    }
+    
   }
-  
-  console.log(getComputerChoice())
 
-//if the number is 0 it should be rock, if the number is 1 it should be paper and if the number is 2 it should be scissors
 
-//get user input of rock, paper or scissors
+function getHumanChoice(){
+    return prompt("Rock, Paper,Scissors!").toLowerCase();
 
-//compare user input to computers choice to see who won
+}
 
-//output result
+
+let humanScore = 0;
+
+let computerScore = 0;
+
+function playRound(humanChoice, computerChoice){
+    if (humanChoice === computerChoice) {
+        console.log(computerChoice + "! Its a tie!")
+    }
+    else if(humanChoice === "rock" && computerChoice === "paper"){
+        console.log(computerChoice + "! you lose!")
+    }
+    else if(humanChoice === "rock" && computerChoice === "scissors"){
+        console.log(computerChoice + "! you win!")
+    }
+    else if(humanChoice === "paper" && computerChoice === "rock"){
+        console.log(computerChoice + "! you win!")
+    }
+    else if(humanChoice === "paper" && computerChoice === "scissors"){
+        console.log(computerChoice + "! you lose!")
+    }
+    else if(humanChoice === "scissors" && computerChoice === "paper"){
+        console.log(computerChoice + "! you win!")
+    }
+    else if(humanChoice === "scissors" && computerChoice === "rock"){
+        console.log(computerChoice + "! you lose!")
+    }
+}
+
+function playGame(){
+    const humanChoice = getHumanChoice();
+    const computerChoice = getComputerChoice();
+    const int = random();
+
+    for(let i = 0; i < 5; i++) {
+        return playRound(humanChoice, computerChoice);
+    }
+}
