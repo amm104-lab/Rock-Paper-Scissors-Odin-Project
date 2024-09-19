@@ -28,9 +28,13 @@ let humanScore = 0;
 
 let computerScore = 0;
 
+let ties = 0
+
 function playRound(humanChoice, computerChoice){
+
     if (humanChoice === computerChoice) {
         console.log(computerChoice + "! Its a tie!")
+        ties++
     }
     else if(humanChoice === "rock" && computerChoice === "paper"){
         console.log(computerChoice + "! you lose!")
@@ -59,11 +63,12 @@ function playRound(humanChoice, computerChoice){
 }
 
 function playGame(){
-    const humanChoice = getHumanChoice();
-    const computerChoice = getComputerChoice();
-
 
     for(let i = 0; i < 5; i++) {
+        const humanChoice = getHumanChoice();
+        const computerChoice = getComputerChoice();
         playRound(humanChoice, computerChoice);
     }
+
+    console.log("You: "+humanScore+" CPU: "+computerScore+" Ties: "+ties)
 }
