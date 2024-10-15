@@ -19,88 +19,69 @@ function getComputerChoice() {
     }
   }
 
-
 function getHumanChoice(){
     return prompt("Rock, Paper,Scissors!").toLowerCase();
 
 }
 
+function updateScoreDisplay(){
+    scr.textContent = "You: " + humanScore +" CPU: " + computerScore + " Ties: " + ties
+}
+
+function updateResultDisplay(computerChoice, resultText){
+    res.textContent = computerChoice + resultText;
+}
+
 let humanScore = 0;
-
 let computerScore = 0;
-
 let ties = 0
 
 function playRound(humanChoice, computerChoice){
-if(humanScore+computerScore+ties===5){
     
-    if(humanScore>computerScore){
+    if(humanScore+computerScore+ties===5){
         
-        win.textContent = "You win the game!"
-        win.classList.add("font-effect-win");
+        if(humanScore>computerScore){
+            
+            win.textContent = "You win the game!"
+            win.classList.add("font-effect-win");
+        }
+        else if(computerScore>humanScore){
+            
+            win.textContent = "You lose the game!"
+            win.classList.add("font-effect-lose");
+        }
+        else{
+            win.textContent = "It's a tie!"
+            win.classList.add("font-effect-tie");
+        }
     }
-    else if(computerScore>humanScore){
-        
-        win.textContent = "You lose the game!"
-        win.classList.add("font-effect-lose");
-    }
-    else{
-        win.textContent = "It's a tie!"
-        win.classList.add("font-effect-tie");
-    }
-}
 
-else{
-    if (humanChoice === computerChoice) {
-        /*console.log(computerChoice + "! Its a tie!")
-        ties++*/
-        res.textContent = computerChoice + "! It's a tie!";
-        ties ++;
-        scr.textContent = "You: " + humanScore +" CPU: " + computerScore + " Ties: " + ties
-    }
-    else if(humanChoice === "rock" && computerChoice === "paper"){
-        /*console.log(computerChoice + "! you lose!")
-        computerScore++*/
-        res.textContent = computerChoice + "! You lose!";
-        computerScore++;
-        scr.textContent = "You: " + humanScore +" CPU: " + computerScore + " Ties: " + ties
-    }
-    else if(humanChoice === "rock" && computerChoice === "scissors"){
-        /*console.log(computerChoice + "! you win!")
-        humanScore++*/
-        res.textContent = computerChoice + "! You win!";
-        humanScore++;
-        scr.textContent = "You: " + humanScore +" CPU: " + computerScore + " Ties: " + ties
-    }
-    else if(humanChoice === "paper" && computerChoice === "rock"){
-        /*console.log(computerChoice + "! you win!")
-        humanScore++*/
-        res.textContent = computerChoice + "! You win!";
-        humanScore++;
-        scr.textContent = "You: " + humanScore +" CPU: " + computerScore + " Ties: " + ties
-    }
-    else if(humanChoice === "paper" && computerChoice === "scissors"){
-        /*console.log(computerChoice + "! you lose!")
-        computerScore++*/
-        res.textContent = computerChoice + "! You lose!";
-        computerScore++;
-        scr.textContent = "You: " + humanScore +" CPU: " + computerScore + " Ties: " + ties
-    }
-    else if(humanChoice === "scissors" && computerChoice === "paper"){
-        /*console.log(computerChoice + "! you win!")
-        humanScore++*/
-        res.textContent = computerChoice + "! You win!";
-        humanScore++;
-        scr.textContent = "You: " + humanScore +" CPU: " + computerScore + " Ties: " + ties
-    }
-    else if(humanChoice === "scissors" && computerChoice === "rock"){
-        /*console.log(computerChoice + "! you lose!")
-        computerScore++*/
-        res.textContent = computerChoice + "! You lose!";
-        computerScore++;
-        scr.textContent = "You: " + humanScore +" CPU: " + computerScore + " Ties: " + ties
-    }
-}
+    else{
+
+        if (humanChoice === computerChoice) {
+
+            updateResultDisplay(computerChoice,"! It's a tie!");
+            ties ++;
+            updateScoreDisplay()
+        }
+        else if(humanChoice === "rock" && computerChoice === "paper" ||
+                humanChoice === "paper" && computerChoice === "scissors"||
+                humanChoice === "scissors" && computerChoice === "rock"){
+
+            updateResultDisplay(computerChoice,"! You lose!");
+            computerScore++;
+            updateScoreDisplay()
+        }
+
+        else if(humanChoice === "rock" && computerChoice === "scissors" ||
+                humanChoice === "paper" && computerChoice === "rock" ||
+                humanChoice === "scissors" && computerChoice === "paper"){
+
+            updateResultDisplay(computerChoice,"! You win!");
+            humanScore++;
+            updateScoreDisplay()
+        }
+        }
 }
 
 function playGame(humanChoice){
