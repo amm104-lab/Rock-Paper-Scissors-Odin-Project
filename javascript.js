@@ -17,7 +17,6 @@ function getComputerChoice() {
     else {
         return "scissors"
     }
-    
   }
 
 
@@ -25,7 +24,6 @@ function getHumanChoice(){
     return prompt("Rock, Paper,Scissors!").toLowerCase();
 
 }
-
 
 let humanScore = 0;
 
@@ -35,15 +33,20 @@ let ties = 0
 
 function playRound(humanChoice, computerChoice){
 if(humanScore+computerScore+ties===5){
-    //declare winner
+    
     if(humanScore>computerScore){
+        
         win.textContent = "You win the game!"
+        win.classList.add("font-effect-win");
     }
     else if(computerScore>humanScore){
+        
         win.textContent = "You lose the game!"
+        win.classList.add("font-effect-lose");
     }
     else{
         win.textContent = "It's a tie!"
+        win.classList.add("font-effect-tie");
     }
 }
 
@@ -108,10 +111,8 @@ function playGame(humanChoice){
         playRound(humanChoice, computerChoice);
     //}
 
-    console.log("You: "+humanScore+" CPU: "+computerScore+" Ties: "+ties)
+    //console.log("You: "+humanScore+" CPU: "+computerScore+" Ties: "+ties)
 }
-
-
 
 const rock = document.querySelector("#Rock");
 rock.addEventListener("click", () => {
@@ -120,12 +121,12 @@ rock.addEventListener("click", () => {
 
 const paper = document.querySelector("#Paper");
 paper.addEventListener("click", () => {
-    playRound("paper",getComputerChoice())
+    playGame("paper")
 })
 
 const scissors = document.querySelector("#Scissors");
 scissors.addEventListener("click", () => {
-    playRound("scissors",getComputerChoice())
+    playGame("scissors")
 })
 
 const reset = document.querySelector("#reset");
@@ -135,4 +136,9 @@ reset.addEventListener("click", () => {
     ties=0;
     scr.textContent = "You: " + humanScore +" CPU: " + computerScore + " Ties: " + ties
     win.textContent = "";
+    win.classList.remove("font-effect-win");
+    win.classList.remove("font-effect-lose");
+    win.classList.remove("font-effect-tie");
+    scr.textContent = "";
+    res.textContent = "";
 })

@@ -1,0 +1,67 @@
+body{
+    background-color: aliceblue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 70px;
+}
+
+div{
+    margin: 10px;
+    text-align: center;
+    font-size: 25px;
+    font-family: "Trirong",sans-serif;
+}
+
+button{
+    border-radius: 5px;
+    min-height: 50px;
+    min-width: 100px;
+    font-size: 20px;
+    margin: 10px;
+    font-family: "Trirong",sans-serif;
+}
+
+.font-effect-lose{
+    font-size: 50px;
+    font-family: "Sofia",sans-serif;
+    color: #e7f4ff;
+    text-shadow: 1px -3px 10px #0000ff, 1px -3px 10px #0000ff;
+}
+
+.font-effect-win{
+    font-size: 50px;
+    font-family: "Sofia",sans-serif;
+    color: #fff9ea;
+    text-shadow: 1px -3px 10px #ff8800, 1px -3px 10px #ff9100;
+}
+
+.font-effect-tie{
+    font-size: 50px;
+    font-family: "Sofia",sans-serif;
+    color: #eaffe7;
+    text-shadow: 1px -3px 10px #03bd32, 1px -3px 10px #03bd32;
+}
+
+#Rock{
+    background-color: #d3a878;
+}
+
+#Paper{
+    background-color: #fcfcfc;
+}
+
+#Scissors{
+    background-color: #c5c5c5;
+}
+
+#reset{
+    background-color: #000000;
+    color: #ffffff;
+    font-weight: bolder;
+}
+
+.headline{
+    font-size: 90px;
+}
