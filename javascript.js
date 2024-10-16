@@ -25,19 +25,15 @@ function getHumanChoice(){
 }
 
 function updateScoreDisplay(){
-    scr.textContent = "You: " + humanScore +" CPU: " + computerScore + " Ties: " + ties
+    scr.textContent = "You: " + humanScore +" CPU: " + computerScore + " Ties: " + ties;
+    checkGame();
 }
 
 function updateResultDisplay(computerChoice, resultText){
     res.textContent = computerChoice + resultText;
 }
 
-let humanScore = 0;
-let computerScore = 0;
-let ties = 0
-
-function playRound(humanChoice, computerChoice){
-    
+function checkGame(){
     if(humanScore+computerScore+ties===5){
         
         if(humanScore>computerScore){
@@ -55,32 +51,53 @@ function playRound(humanChoice, computerChoice){
             win.classList.add("font-effect-tie");
         }
     }
+}
 
-    else{
+function capitalizeFirst(letters){
+    return letters.slice(0,1).toUpperCase()
+}
 
-        if (humanChoice === computerChoice) {
+function capitalize(content){
+    return capitalizeFirst(content) + content.slice(1);
+}
 
-            updateResultDisplay(computerChoice,"! It's a tie!");
+function declareWinner(humanChoice, computerChoice){
+    return humanChoice === computerChoice ? 
+        "tie" : 
+            humanChoice === "rock" && computerChoice === "paper" ||
+            humanChoice === "paper" && computerChoice === "scissors"||
+            humanChoice === "scissors" && computerChoice === "rock" ?
+                "human" : 
+                    humanChoice === "rock" && computerChoice === "scissors" ||
+                    humanChoice === "paper" && computerChoice === "rock" ||
+                    humanChoice === "scissors" && computerChoice === "paper" ?
+                        "cpu" : "invalid";
+}
+
+let humanScore = 0;
+let computerScore = 0;
+let ties = 0
+
+function playRound(humanChoice, computerChoice){
+
+        if (declareWinner(humanChoice,computerChoice) == "tie") {
+
+            updateResultDisplay(capitalize(capitalize(computerChoice)),"! It's a tie!");
             ties ++;
             updateScoreDisplay()
         }
-        else if(humanChoice === "rock" && computerChoice === "paper" ||
-                humanChoice === "paper" && computerChoice === "scissors"||
-                humanChoice === "scissors" && computerChoice === "rock"){
+        else if(declareWinner(humanChoice,computerChoice) == "cpu"){
 
-            updateResultDisplay(computerChoice,"! You lose!");
+            updateResultDisplay(capitalize(computerChoice),"! You lose!");
             computerScore++;
             updateScoreDisplay()
         }
 
-        else if(humanChoice === "rock" && computerChoice === "scissors" ||
-                humanChoice === "paper" && computerChoice === "rock" ||
-                humanChoice === "scissors" && computerChoice === "paper"){
+        else if(declareWinner(humanChoice,computerChoice) == "human"){
 
-            updateResultDisplay(computerChoice,"! You win!");
+            updateResultDisplay(capitalize(computerChoice),"! You win!");
             humanScore++;
             updateScoreDisplay()
-        }
         }
 }
 
@@ -115,7 +132,7 @@ reset.addEventListener("click", () => {
     humanScore=0;
     computerScore=0;
     ties=0;
-    scr.textContent = "You: " + humanScore +" CPU: " + computerScore + " Ties: " + ties
+    updateScoreDisplay();
     win.textContent = "";
     win.classList.remove("font-effect-win");
     win.classList.remove("font-effect-lose");
