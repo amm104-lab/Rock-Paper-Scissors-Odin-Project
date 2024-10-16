@@ -2,59 +2,70 @@ const res = document.querySelector("#result");
 const scr = document.querySelector("#score");
 const win = document.querySelector("#final");
 
+let humanScore = 0;
+let computerScore = 0;
+let ties = 0
+
+let e = document.querySelector(".btnGroup");
+let rocks = document.querySelector("#Rock");
+let papers = document.querySelector("#Paper");
+let scissorss = document.querySelector("#Scissors");
+
 function random(){
     return Math.round(Math.random() * 2);
 }
 
 function getComputerChoice() {
-
-    if  (Math.round(Math.random() * 2) === 0) {
-        return "rock"
+    if  (random() == 0) {
+        return "rock";
     }
-    else if (Math.round(Math.random() * 2) === 1){
-        return "paper"
+    else if (random() === 1){
+        return "paper";
     }
     else {
-        return "scissors"
+        return "scissors";
     }
-  }
-
-function getHumanChoice(){
-    return prompt("Rock, Paper,Scissors!").toLowerCase();
-
 }
 
 function updateScoreDisplay(){
     scr.textContent = "You: " + humanScore +" CPU: " + computerScore + " Ties: " + ties;
-    checkGame();
 }
 
 function updateResultDisplay(computerChoice, resultText){
     res.textContent = computerChoice + resultText;
 }
 
+function killButtons(){
+    let btn = e.lastElementChild;
+
+    while(btn){
+        e.removeChild(btn);
+        btn = e.lastElementChild;
+    }
+}
+
 function checkGame(){
-    if(humanScore+computerScore+ties===5){
-        
-        if(humanScore>computerScore){
-            
-            win.textContent = "You win the game!"
+    if(humanScore + computerScore + ties === 5){
+        if(humanScore > computerScore){
+            win.textContent = "You win the game!";
             win.classList.add("font-effect-win");
         }
-        else if(computerScore>humanScore){
-            
-            win.textContent = "You lose the game!"
+        else if(computerScore > humanScore){
+            win.textContent = "You lose the game!";
             win.classList.add("font-effect-lose");
         }
         else{
-            win.textContent = "It's a tie!"
+            win.textContent = "It's a tie!";
             win.classList.add("font-effect-tie");
         }
+    }
+    else{
+        return 1;
     }
 }
 
 function capitalizeFirst(letters){
-    return letters.slice(0,1).toUpperCase()
+    return letters.slice(0,1).toUpperCase();
 }
 
 function capitalize(content){
@@ -74,27 +85,32 @@ function declareWinner(humanChoice, computerChoice){
                         "cpu" : "invalid";
 }
 
-let humanScore = 0;
-let computerScore = 0;
-let ties = 0
+function appendBtn(){
+    e.appendChild(rocks);
+    e.appendChild(papers);
+    e.appendChild(scissorss);
+}
+
+function reset(){
+    humanScore = computerScore = ties = 0;
+    updateScoreDisplay();
+    win.textContent = scr.textContent = res.textContent = "";
+    win.classList.remove("font-effect-win", "font-effect-lose", "font-effect-tie");
+    appendBtn();
+}
 
 function playRound(humanChoice, computerChoice){
-
         if (declareWinner(humanChoice,computerChoice) == "tie") {
-
             updateResultDisplay(capitalize(capitalize(computerChoice)),"! It's a tie!");
             ties ++;
             updateScoreDisplay()
         }
         else if(declareWinner(humanChoice,computerChoice) == "cpu"){
-
             updateResultDisplay(capitalize(computerChoice),"! You lose!");
             computerScore++;
             updateScoreDisplay()
         }
-
         else if(declareWinner(humanChoice,computerChoice) == "human"){
-
             updateResultDisplay(capitalize(computerChoice),"! You win!");
             humanScore++;
             updateScoreDisplay()
@@ -102,41 +118,30 @@ function playRound(humanChoice, computerChoice){
 }
 
 function playGame(humanChoice){
-
-    //for(let i = 0; i < 5; i++) {
-       // const humanChoice = getHumanChoice();
         const computerChoice = getComputerChoice();
-        playRound(humanChoice, computerChoice);
-    //}
-
-    //console.log("You: "+humanScore+" CPU: "+computerScore+" Ties: "+ties)
+        if(checkGame() != null){
+        playRound(humanChoice, computerChoice);}
+        else{
+            killButtons();
+        }
 }
 
 const rock = document.querySelector("#Rock");
 rock.addEventListener("click", () => {
-    playGame("rock")
+    playGame("rock");
 })
 
 const paper = document.querySelector("#Paper");
 paper.addEventListener("click", () => {
-    playGame("paper")
+    playGame("paper");
 })
 
 const scissors = document.querySelector("#Scissors");
 scissors.addEventListener("click", () => {
-    playGame("scissors")
+    playGame("scissors");
 })
 
-const reset = document.querySelector("#reset");
-reset.addEventListener("click", () => {
-    humanScore=0;
-    computerScore=0;
-    ties=0;
-    updateScoreDisplay();
-    win.textContent = "";
-    win.classList.remove("font-effect-win");
-    win.classList.remove("font-effect-lose");
-    win.classList.remove("font-effect-tie");
-    scr.textContent = "";
-    res.textContent = "";
+const resetButton = document.querySelector("#reset");
+resetButton.addEventListener("click", () => {
+    reset();
 })
